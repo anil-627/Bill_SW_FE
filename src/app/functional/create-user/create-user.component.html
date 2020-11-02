@@ -1,0 +1,70 @@
+<section class="bg-color">
+    <mat-card>
+    <form [formGroup] = "userForm" (ngSubmit) = "onSubmit()" autocomplete="off">
+        <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field class="example-full-width">
+                    <mat-label>USERNAME</mat-label>
+                    <input matInput placeholder="USERNAME" formControlName="userName">
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="example-full-width">
+                    <mat-label>PASSWORD </mat-label>
+                    <input 
+                    matInput 
+                    #input 
+                    type="password"
+                    formControlName="password">          
+                </mat-form-field>
+            </div>
+
+            <div class="col-sm-4">
+                <mat-form-field class="example-full-width">
+                    <mat-label>MOBILE NUMBER</mat-label>
+                    <input matInput placeholder="MOBILE NUMBER"   formControlName="mobileNumber">
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-sm-4 ">
+
+                <mat-radio-group aria-label="Select an option"   formControlName="gender">
+                    <mat-label style="margin-right: 1rem;">SEX</mat-label>
+                    <mat-radio-button value="1">MALE</mat-radio-button>
+                    <mat-radio-button value="2">FEMALE</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="col-sm-4 ">
+
+                <mat-radio-group aria-label="Select an option"   formControlName="status">
+                    <mat-label style="margin-right: 1rem;">Status</mat-label>
+                    <mat-radio-button value="0">Inactive</mat-radio-button>
+                    <mat-radio-button value="1">Active</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <div class="col-sm-4">
+                <mat-form-field appearance="fill" class="example-full-width">
+                    <mat-label>Role</mat-label>
+                    <mat-select  formControlName="role">
+                        <mat-option *ngFor="let accessLevel of accessLevels" [value]="accessLevel.roleId">
+                            {{accessLevel.roleName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+
+        
+            
+        </div>
+        <div class="text-center" >
+                <button mat-raised-button color="primary" type="submit" [disabled]="!this.userForm.valid">SUBMIT</button>
+        </div>
+    </form>
+    </mat-card>
+</section>

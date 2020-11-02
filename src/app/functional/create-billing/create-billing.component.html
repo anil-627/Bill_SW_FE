@@ -1,0 +1,183 @@
+<section>
+    <form [formGroup]="billingFormGroup" (ngSubmit)="onSubmit()" autocomplete="off">
+        <mat-card>
+            <div class="row">
+                <div class="col-sm-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>INVOICE NO</mat-label>
+                        <input matInput placeholder="invoice no" formControlName="invoiceNo">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <mat-form-field appearance="fill" class="example-full-width">
+                        <mat-label>INVOICE DATE</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="invoiceDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>CUSTOMER NAME</mat-label>
+                        <input matInput placeholder="customer name" formControlName="customerName">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>CUSTOMER NO</mat-label>
+                        <input matInput placeholder="customer no" formControlName="customerNo">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card>
+        <br />
+        <mat-card>
+            <div class="row">
+
+                <div formArrayName="gridData">
+                    <div class="row" *ngFor="let item of billingFormGroup.get('gridData')['controls']; let i = index">
+
+                        <div class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
+                            <div class="form-group">
+                                <button (click)="onAddCustomField()" mat-mini-fab type="button" class="btn"
+                                    mat-raised-button>
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1" [formGroupName]="i">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" matInput required placeholder="Sl No" formControlName="slno" />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1" [formGroupName]="i">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" matInput required placeholder="Item No"
+                                        formControlName="itemNumber" />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-xl-3 col-lg-3" [formGroupName]="i">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input type="text" matInput required placeholder="Item Name"
+                                        formControlName="itemName" />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+                        <div [formGroupName]="i" class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="quantity" 
+                                    matInput 
+                                    required 
+                                    placeholder="Quantity"
+                                    #quantity
+                                    (blur)="calculateGridAmount(discount.value,mrp.value,quantity.value,i)"
+                                        type="text" />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div [formGroupName]="i" class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="mrp"
+                                     matInput required 
+                                     placeholder="MRP" type="text" 
+                                     #mrp
+                                     (blur)="calculateGridAmount(discount.value,mrp.value,quantity.value,i)"
+                                     />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+                        <div [formGroupName]="i" class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="totalAmt" matInput required placeholder="Tot Amt."
+                                        type="text" />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+                        <div [formGroupName]="i" class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="discount" matInput required placeholder="Disc %"
+                                        type="text" 
+                                        #discount
+                                        (blur)="calculateGridAmount(discount.value,mrp.value,quantity.value,i)"
+                                        />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+
+                        <div [formGroupName]="i" class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
+                            <div class="form-group">
+                                <mat-form-field class="example-full-width">
+                                    <input formControlName="netAmount" matInput required placeholder="Net Amt."
+                                        type="text" />
+
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-xl-1 col-lg-1 text-left">
+                            <div class="form-group">
+                                <button (click)="onRemoveCustomField(i,billingFormGroup.get('gridData')['controls']);"
+                                    color="warn" mat-mini-fab type="button" class="btn">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </mat-card>
+        <br>
+
+        <div class="row" >
+            <div class="text-center">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!this.billingFormGroup.valid">SAVE</button>
+
+                <button mat-raised-button color="accent" type="button" [disabled]="!this.billingFormGroup.valid">PRINT</button>
+
+                <button mat-raised-button color="warn" type="reset">RESET</button>
+            </div>
+        </div>
+    </form>
+</section>
