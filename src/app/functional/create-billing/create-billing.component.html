@@ -5,10 +5,10 @@
                 <div class="col-sm-6">
                     <mat-form-field class="example-full-width">
                         <mat-label>INVOICE NO</mat-label>
-                        <input matInput placeholder="invoice no" formControlName="invoiceNo"> 
+                        <input matInput placeholder="invoice no" formControlName="invoiceNo">
                     </mat-form-field>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6" >
                     <mat-form-field appearance="fill" class="example-full-width">
                         <mat-label>INVOICE DATE</mat-label>
                         <input matInput [matDatepicker]="picker1" formControlName="invoiceDate">
@@ -86,9 +86,9 @@
                         <div [formGroupName]="i" class="col-xs-12 col-sm-1 col-md-1 col-xl-1 col-lg-1">
                             <div class="form-group">
                                 <mat-form-field class="example-full-width">
-                                    <input formControlName="quantity" 
-                                    matInput 
-                                    required 
+                                    <input formControlName="quantity"
+                                    matInput
+                                    required
                                     placeholder="Quantity"
                                     #quantity
                                     (blur)="calculateGridAmount(discount.value,mrp.value,quantity.value,i)"
@@ -103,8 +103,8 @@
                             <div class="form-group">
                                 <mat-form-field class="example-full-width">
                                     <input formControlName="mrp"
-                                     matInput required 
-                                     placeholder="MRP" type="text" 
+                                     matInput required
+                                     placeholder="MRP" type="text"
                                      #mrp
                                      (blur)="calculateGridAmount(discount.value,mrp.value,quantity.value,i)"
                                      />
@@ -131,7 +131,7 @@
                             <div class="form-group">
                                 <mat-form-field class="example-full-width">
                                     <input formControlName="discount" matInput required placeholder="Disc %"
-                                        type="text" 
+                                        type="text"
                                         #discount
                                         (blur)="calculateGridAmount(discount.value,mrp.value,quantity.value,i)"
                                         />
